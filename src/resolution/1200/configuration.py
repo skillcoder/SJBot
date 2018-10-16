@@ -3,34 +3,31 @@ from definitions import *
 """
 Grid positions for 1440p:
     (1740, 134) to (2508, 902)
-Grid positions for 1920x1200 (windowed):
-    (1237, 112)
-    grid_size 640 
-    gem_size 80
 """
 
 class Configuration:
-    screen_width = 2560         # Width of computer screen
-    screen_height = 1440        # Height of computer screen
+    screen_width = 1920         # Width of computer screen
+    screen_height = 1200        # Height of computer screen
 
-    offset_x = 1740             # X offset of grid
-    offset_y = 134              # Y offset of grid
-    grid_size = 768             # Size of grid (square)
-    gem_size = 96               # Size of gem (square)
+    offset_x = 1237             # X offset of grid
+    offset_y = 112              # Y offset of grid
+    grid_size = 640             # Size of grid (square)
+    gem_size = 80               # Size of gem (square)
     grid_length = 8             # Number of gems from top-bottom or left-right
 
-    idle_x = 1050                # X offset for idle position
-    idle_y = 800                 # Y offset for idle position
+    idle_x = 20                # X offset for idle position
+    idle_y = 20                 # Y offset for idle position
 
     tolerance = 4               # RGB tolerance range for gem color detection
     skip = 5                    # Percentage (100 / skip %) of pixels averaged to determine gem color (higher = slower, but more accurate)
+    unknown_threshold = 2      # Max number of unknown gems allowed before converting board
 
-    unknown_threshold = 48      # Max number of unknown gems allowed before converting board
-    chain_delay = 0.25          # Number of seconds to delay for each chain level above one (1.36 for update one chain)
+    chain_delay = 0.25         # Number of seconds to delay for each chain level above one (1.36 for update one chain)
     one_by_one = False          # Make one turn before update board (1.36 and true for FOR THE SWARM)
+
     # Not implemented
-    look_ahead_count = 3        # Look ahead X number of moves to find the best move
-    powerset_limit = 5          # Maximum number of moves we can calculate powerset for without hindering performance
+    look_ahead_count = 20       # Look ahead X number of moves to find the best move
+    powerset_limit = 20         # Maximum number of moves we can calculate powerset for without hindering performance
 
     enabled = False             # Runtime flag -- run the bot algorithm?
     debug = False               # Runtime flag -- show debug output

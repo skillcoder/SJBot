@@ -148,17 +148,33 @@ class Strategy:
 
         # Calculate a score for each move based on a calculation of the three metrics
         for move_id, info in move_info.iteritems():
-            move_score[move_id] = info[0] + (info[2] * 5)       # points_gained + (num_moves_created * 5)
-
+            #move_score[move_id] = info[0] + (info[2] * 5)       # points_gained + (num_moves_created * 5)
+            # 2 gj
+            # 3 fantastic
+            # 4 hardcore
+            # 5 masterful
+            # 6 for the swarm
+            if info[1] >= 4:
+                move_score[move_id] = info[1] * 1000
+            else:
+                move_score[move_id] = move_dictionary[move_id].point.y + (info[2] * 5)
 
         # Order the moves from best move to worst move (based on score) and return them as a MoveSet with delays added
         moves = []
         total_points = 0
         highest_chain = 0
+        move_ids = []
 
         for move_id in sorted(move_score, key = move_score.get, reverse = True):
+            move_ids.append(move_id)
             moves.append(move_dictionary[move_id])
             total_points += move_info[move_id][0]
             highest_chain = move_info[move_id][1] if move_info[move_id][1] > highest_chain else highest_chain
+            if Configuration.one_by_one:
+                break
 
-        return MoveSet(moves, total_points, 0)
+        if len(move_ids) > 0 and Configuration.show_turns:
+            for move_id in move_ids:
+                print_debug("highest_chain: "+str(move_info[move_id][1])+" "+str(move_dictionary[move_id].point.x)+"x"+str(move_dictionary[move_id].point.y)+" = "+str(move_info[move_id][0]) +" ("+str(move_score[move_id])+")")
+
+        return MoveSet(moves, total_points, highest_chain * Configuration.chain_delay)

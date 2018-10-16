@@ -23,7 +23,7 @@ def enable_toggle():
             Configuration.enabled = True
 
         # Move mouse to top left corner to stop the bot
-        elif x < 5 and y == 0:
+        elif x < 10 and y < 10:
             print_debug("Bot Disabled")
             Configuration.enabled = False
 
@@ -84,6 +84,7 @@ def main(args):
         scan_time = benchmark.time("scan")
         benchmark.start("decision")
         move_set = Strategy(board).decide()
+
         decide_time = benchmark.time("decision")
         move_set.make()
         total_time = benchmark.time("main")
